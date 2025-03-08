@@ -1,22 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:test_rout/routes/routes.dart';
 import 'package:test_rout/screen/home.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:test_rout/screen/profile.dart';
 import 'package:test_rout/screen/result.dart';
 
-
-final GoRouter _route =GoRouter(
-  initialLocation: '/home',
-  routes: [
-    GoRoute(path: '/home',builder: (context,state)=> HomeScreen()),
-    GoRoute(path:'/profile',builder: (context,state)=> Profile() ),
-    GoRoute(path: '/result',builder: (context, state) {
-      final result = state.extra as double?;
-      return ResultScreen(result: result);
-    }),
-  ]
-);
+// TODO: need be in a single file not in main file
+// GoRouter(initialLocation: '/home', routes: [
+// ..........
 
 
 void main() {
@@ -26,9 +18,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-
-
-
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
@@ -37,14 +26,10 @@ class MyApp extends StatelessWidget {
       splitScreenMode: true,
       builder: (context, child) {
         return MaterialApp.router(
-          routerConfig: _route,
-
+          routerConfig: initGoRouter(),
           debugShowCheckedModeBanner: false,
         );
       },
     );
   }
 }
-
-
-

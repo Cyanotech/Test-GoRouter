@@ -8,15 +8,18 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(backgroundColor: const Color(0xffb7b0ff),
-          leading: (
-              GestureDetector(
-                child: Icon(Icons.arrow_back,color: Colors.white,size: 34.w,),
-onTap: (){
-                  context.go('/home');
-},
-          ))
-         ),
+      appBar: AppBar(
+          backgroundColor: const Color(0xffb7b0ff),
+          leading: (GestureDetector(
+            child: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+              size: 34.w,
+            ),
+            onTap: () {
+              context.go('/home');
+            },
+          ))),
       body: Center(
         child: Text(
           'Profile',

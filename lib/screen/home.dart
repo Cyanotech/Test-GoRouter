@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:test_rout/routes/route_name.dart';
 import '../widgets/AppBar_Drawer.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -20,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
       double num1 = double.tryParse(_controller1.text) ?? 0;
       double num2 = double.tryParse(_controller2.text) ?? 0;
       _result = num1 + num2;
-      // context.go('/result', extra: _result);
+      // context.go('/result?resultn=${_result}');
     });
   }
 
@@ -44,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
           Builder(
             builder: (BuildContext context) {
               return IconButton(
-                icon:  Icon(Icons.menu, color: Colors.white),
+                icon: Icon(Icons.menu, color: Colors.white),
                 onPressed: () {
                   Scaffold.of(context).openDrawer();
                 },
@@ -53,26 +54,32 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
       ),
-      drawer:  DrawerAppBar(),
+      drawer: DrawerAppBar(),
       body: Padding(
         padding: EdgeInsets.all(16.w),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding:EdgeInsets.all(18.w),
-              child: Text("Send me the numbers so I can tell you what their sum is",textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.w600,fontSize:14.w,color: Color(
-                  0xff6e59ff)),),
+              padding: EdgeInsets.all(18.w),
+              child: Text(
+                "Send me the numbers so I can tell you what their sum is",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14.w,
+                    color: Color(0xff6e59ff)),
+              ),
             ),
             TextField(
               controller: _controller1,
-              keyboardType: TextInputType.number, 
+              keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 labelText: 'Add number',
                 border: OutlineInputBorder(),
               ),
             ),
-            SizedBox(height: 16.h), 
+            SizedBox(height: 16.h),
             TextField(
               controller: _controller2,
               keyboardType: TextInputType.number,
@@ -83,15 +90,22 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             SizedBox(height: 20.h),
             ElevatedButton(
-              onPressed:(){
+              onPressed: () {
                 _calculateSum();
-                context.go('/result', extra: _result);
-
+                /// Use queryParameters for optional values, and pathParameters when passing required data.
+                context.pushNamed(RouteName.resultPage,
+                    queryParameters: {"calculateResult": "$_result"});
+                // context.go('/result', extra: _result);
               },
-              child: Text('Sum',style:TextStyle(fontWeight: FontWeight.w600,fontSize:14.w,color: Color(0xff6e59ff)),
-            ),),
+              child: Text(
+                'Sum',
+                style: TextStyle(
+                    fontWeight: FontWeight.w600,
+                    fontSize: 14.w,
+                    color: Color(0xff6e59ff)),
+              ),
+            ),
             SizedBox(height: 20.h),
-
           ],
         ),
       ),
